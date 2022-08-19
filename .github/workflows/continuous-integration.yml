@@ -38,17 +38,20 @@ jobs:
             cxx: g++-10
             cmake_generator: "Unix Makefiles"
             docker: ""
+            executable_name: "PS2_pnach_converter"
           - platform_name: macos
             os: macos-10.15
             cxx: clang++
             cmake_generator: "Unix Makefiles"
             docker: ""
+            executable_name: "PS2_pnach_converter"
           # NOTE: CXX seems to be ignored on Windows, but specify it anyway for consistency
           - platform_name: windows
             os: ubuntu-20.04
             cxx: "g++"
             cmake_generator: ""
             docker: "dockcross/windows-static-x86:latest"
+            executable_name: "PS2_pnach_converter.exe"
 
     steps:
       - uses: actions/checkout@v2
@@ -121,7 +124,7 @@ jobs:
             
       - name: repack
         run: |
-            7z a -t7z ${{ github.event.repository.name }}-${{ matrix.platform_name }}.7z ${{github.workspace}}/build/PS2_pnach_converter*
+            7z a -t7z ${{ github.event.repository.name }}-${{ matrix.platform_name }}.7z ${{github.workspace}}/build/${{ matrix.executable_name }}
 
       - name: Deploy pre-release
         uses: softprops/action-gh-release@v1
