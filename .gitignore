@@ -127,3 +127,5 @@ $RECYCLE.BIN/
 build/*
 # but explicitly allow the .gitkeep file so this directory shall always exist
 !build/.gitkeep
+*.pnach
+*.res

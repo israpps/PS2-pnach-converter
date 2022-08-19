@@ -118,7 +118,12 @@ CPMFindPackage(
     GIT_TAG v3.1.6
     EXCLUDE_FROM_ALL YES
 )
-
-add_executable(demo WIN32 main.cpp)
+include_directories("PS2-pnach-converter")
+add_executable(PS2_pnach_converter WIN32 
+	"PS2-pnach-converter/PS2_pnach_converterMain.cpp"
+	"PS2-pnach-converter/PS2_pnach_converterApp.cpp"
+	#END OF UI TRANSLATION UNITS
+	"PS2-pnach-converter/src/CheatConvert.cpp"
+)
 # target_link_libraries(demo PRIVATE wx-widgets-test-compiler-options)
-target_link_libraries(demo PRIVATE wx::net wx::core wx::base)
+target_link_libraries(demo PRIVATE wx::net wx::core wx::base wx::regex )
