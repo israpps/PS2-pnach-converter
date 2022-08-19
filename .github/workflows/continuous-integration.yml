@@ -12,15 +12,14 @@ jobs:
   clean_release:
     runs-on: ubuntu-latest
     steps:
-    - name: delete previous tag/release
-      if: github.ref == 'refs/heads/master'
-      uses: dev-drprasad/delete-tag-and-release@v0.2.0
-      with:
-        delete_release: true
-        tag_name: "latest"
-      env:
-       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
+      - name: delete previous tag/release
+        if: github.ref == 'refs/heads/master'
+        uses: dev-drprasad/delete-tag-and-release@v0.2.0
+        with:
+          delete_release: true
+          tag_name: "latest"
+        env:
+         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}=
 
   continuous-integration:
     runs-on: ${{ matrix.os }}
@@ -123,17 +122,17 @@ jobs:
         run: |
             7z a -t7z ${{ github.event.repository.name }}-${{ matrix.toolchain }}.7z ${{github.workspace}}/build/PS2_pnach_converter*
 
-    - name: Deploy pre-release
-      uses: softprops/action-gh-release@v1
-      if: (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main')
-      with:
-        token: "${{ secrets.GITHUB_TOKEN }}"
-        fail_on_unmatched_files: true
-        files: |
-            ${{ github.event.repository.name }}-${{ matrix.toolchain }}.7z
-        name: "Latest build"
-        tag_name: "latest"
-        prerelease: true
+      - name: Deploy pre-release
+        uses: softprops/action-gh-release@v1
+        if: (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main')
+        with:
+          token: "${{ secrets.GITHUB_TOKEN }}"
+          fail_on_unmatched_files: true
+          files: |
+              ${{ github.event.repository.name }}-${{ matrix.toolchain }}.7z
+          name: "Latest build"
+          tag_name: "latest"
+          prerelease: true
 
       - name: Upload
         uses: actions/upload-artifact@v2
