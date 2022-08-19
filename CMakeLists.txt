@@ -126,4 +126,4 @@ add_executable(PS2_pnach_converter WIN32
 	"PS2-pnach-converter/src/CheatConvert.cpp"
 )
 # target_link_libraries(demo PRIVATE wx-widgets-test-compiler-options)
-target_link_libraries(demo PRIVATE wx::net wx::core wx::base wx::regex )
+target_link_libraries(PS2_pnach_converter PRIVATE wx::net wx::core wx::base wx::regex )
