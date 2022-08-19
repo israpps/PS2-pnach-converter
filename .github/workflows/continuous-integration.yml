@@ -1,0 +1,107 @@
+name: continuous-integration
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  continuous-integration:
+    runs-on: ${{ matrix.os }}
+    container: ${{ matrix.docker }}
+    env:
+      BUILD_TYPE: Release
+    strategy:
+      fail-fast: false
+      matrix:
+        # specify a specific compiler to build with each OS separately
+        include:
+          - platform_name: linux
+            os: ubuntu-20.04
+            cxx: g++-10
+            cmake_generator: "Unix Makefiles"
+            docker: ""
+          - platform_name: macos
+            os: macos-10.15
+            cxx: clang++
+            cmake_generator: "Unix Makefiles"
+            docker: ""
+          # NOTE: CXX seems to be ignored on Windows, but specify it anyway for consistency
+          - platform_name: windows
+            os: ubuntu-20.04
+            cxx: "g++"
+            cmake_generator: ""
+            docker: "dockcross/windows-static-x86:latest"
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install Linux Dependencies
+        if: matrix.platform_name == 'linux'
+        run: sudo apt-get install --assume-yes libgtk-3-dev libglew-dev
+
+      - name: Cache CMake dependency source code
+        uses: actions/cache@v2
+        env:
+          cache-name: cache--cmake-dependency-sources
+        with:
+          # CMake cache is at ${{github.workspace}}/build/_deps but we only will cache folders ending in '-src' to cache source code
+          path: ${{github.workspace}}/build/_deps/*-src
+          # Cache hash is dependent on CMakeLists files anywhere as these can change what's in the cache, as well as cmake modules files
+          key: ${{ env.cache-name }}-${{ hashFiles('**/CMakeLists.txt', 'cmake/**') }}
+          # it's acceptable to reuse caches for different CMakeLists content if exact match is not available and unlike build caches, we
+          # don't need to restrict these by OS or compiler as it's only source code that's being cached
+          restore-keys: |
+            ${{ env.cache-name }}-
+
+      - name: Cache CMake dependency build objects
+        uses: actions/cache@v2
+        env:
+          cache-name: cache--cmake-dependency-builds
+        with:
+          # CMake cache is at ${{github.workspace}}/build/_deps but we only care about the folders ending in -build or -subbuild
+          path: |
+            ${{github.workspace}}/build/_deps/*-build
+            ${{github.workspace}}/build/_deps/*-subbuild
+          # Cache hash is dependent on CMakeLists files anywhere as these can change what's in the cache, as well as cmake modules files
+          key: ${{ env.cache-name }}--${{ matrix.platform_name }}-${{ matrix.cxx }}-${{ hashFiles('**/CMakeLists.txt', 'cmake/**') }}
+          # it's acceptable to reuse caches for different CMakeLists content if exact match is not available
+          # as long as the OS and Compiler match exactly
+          restore-keys: |
+            ${{ env.cache-name }}-${{ matrix.platform_name }}-${{ matrix.cxx }}-
+
+      # when building on master branch and not a pull request, build and test in release mode (optimised build)
+      # - name: Set Build Mode to Release
+      #   shell: bash
+      #   if: ${{ github.event_name != 'pull_request' && github.ref == 'refs/heads/master' }}
+      #   run: echo "BUILD_TYPE=Release" >> $GITHUB_ENV
+
+      - name: Configure CMake
+        env:
+          CXX: ${{ matrix.cxx }}
+        # Use a bash shell so we can use the same syntax for environment variable
+        # access regardless of the host operating system
+        shell: bash
+        working-directory: ${{github.workspace}}/build
+        # Note the current convention is to use the -S and -B options here to specify source 
+        # and build directories, but this is only available with CMake 3.13 and higher.  
+        # The CMake binaries on the Github Actions machines are (as of this writing) 3.12
+        run: cmake $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DBUILD_SHARED_LIBS=OFF 
+
+      - name: Build
+        working-directory: ${{github.workspace}}/build
+        shell: bash
+        # Execute the build.  You can specify a specific target with "--target <NAME>"
+        run: cmake --build . -j5 --config $BUILD_TYPE 
+
+      - name: list repo
+        run: |
+            ls -R
+
+      - name: Upload
+        uses: actions/upload-artifact@v2
+        with:
+          name: wx-widgets-test_build_${{ github.run_number }}_${{ matrix.platform_name }}
+          path: ${{github.workspace}}/build/demo*
