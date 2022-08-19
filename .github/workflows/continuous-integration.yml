@@ -20,7 +20,7 @@ jobs:
           delete_release: true
           tag_name: "latest"
         env:
-         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}=
+         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   continuous-integration:
     runs-on: ${{ matrix.os }}
