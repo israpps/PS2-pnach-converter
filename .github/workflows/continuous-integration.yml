@@ -115,13 +115,13 @@ jobs:
         run: |
             ls -R
             
-      - name: get 7zip
-        run: |
-            sudo apt-get install --assume-yes p7zip-full 
+#      - name: get 7zip
+#        run: |
+#            sudo apt-get install --assume-yes p7zip-full 
             
       - name: repack
         run: |
-            7z a -t7z ${{ github.event.repository.name }}-${{ matrix.toolchain }}.7z ${{github.workspace}}/build/PS2_pnach_converter*
+            7z a -t7z ${{ github.event.repository.name }}-${{ matrix.platform_name }}.7z ${{github.workspace}}/build/PS2_pnach_converter*
 
       - name: Deploy pre-release
         uses: softprops/action-gh-release@v1
@@ -130,7 +130,7 @@ jobs:
           token: "${{ secrets.GITHUB_TOKEN }}"
           fail_on_unmatched_files: true
           files: |
-              ${{ github.event.repository.name }}-${{ matrix.toolchain }}.7z
+              ${{ github.event.repository.name }}-${{ matrix.platform_name }}.7z
           name: "Latest build"
           tag_name: "latest"
           prerelease: true
