@@ -124,7 +124,7 @@ jobs:
             
       - name: repack
         run: |
-            7z a -t7z ${{ github.event.repository.name }}-${{ matrix.platform_name }}.7z ${{github.workspace}}/build/${{ matrix.executable_name }}
+            7z a -t7z ${{ github.event.repository.name }}-${{ matrix.platform_name }}.7z build/${{ matrix.executable_name }}
 
       - name: Deploy pre-release
         uses: softprops/action-gh-release@v1

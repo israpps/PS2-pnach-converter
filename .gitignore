@@ -129,3 +129,4 @@ build/*
 !build/.gitkeep
 *.pnach
 *.res
+PS2-pnach-converter/PS2-pnach-converter.layout
