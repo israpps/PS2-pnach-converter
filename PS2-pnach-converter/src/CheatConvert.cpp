@@ -68,8 +68,7 @@ int CheatConvert::convert_cheats_on_buffstring(wxString* BUFFSTRING)
 	while ( tokenizer.HasMoreTokens() )
 	{
 		wxString token = tokenizer.GetNextToken();
-		if (token != wxEmptyString)
-			VAL.Add(token);
+
 	}
 	convert_cheats_on_buff(&VAL);
 	BUFFSTRING->clear();
