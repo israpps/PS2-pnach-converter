@@ -39,6 +39,11 @@ int CheatConvert::convert_cheats_on_buff(wxArrayString* BUFF)
 	for (size_t x=0; x< BUFF->GetCount();x++)
 	{
 		wxString CHEAT = BUFF->Item(x);
+		/*if (CHEAT == wxEmptyString)
+		{
+			std::cout << "skipping line ["<<x<<"] as it is a wxEmptyString\n";
+			continue;
+		}*/
 		if (CHEAT.StartsWith("gametitle="))
 		{
 			CHEAT.Replace("gametitle=", "//");
@@ -55,7 +60,6 @@ int CheatConvert::convert_cheats_on_buff(wxArrayString* BUFF)
 			wxString ORIGINAL = TMPBUF;
 			convert_cheat(&TMPBUF);
 			CHEAT.Replace(ORIGINAL, TMPBUF, 0);
-			//BUFF[x] = CHEAT;//push the converted line into it's place
 			BUFF->Item(x) = CHEAT;
 		}
 	}
@@ -63,18 +67,17 @@ int CheatConvert::convert_cheats_on_buff(wxArrayString* BUFF)
 }
 int CheatConvert::convert_cheats_on_buffstring(wxString* BUFFSTRING)
 {
-	wxStringTokenizer tokenizer(BUFFSTRING->ToStdString(), "\n");
 	wxArrayString VAL;
-	while ( tokenizer.HasMoreTokens() )
-	{
-		wxString token = tokenizer.GetNextToken();
+	VAL = wxSplit(BUFFSTRING->ToStdString(),'\n', '!');
 
-	}
 	convert_cheats_on_buff(&VAL);
 	BUFFSTRING->clear();
 	for (size_t x=0; x< VAL.GetCount();x++)
 	{
-		BUFFSTRING->append(VAL[x]+'\n');
+		if (VAL[x] == wxEmptyString)
+			BUFFSTRING->append("\n");
+		else
+			BUFFSTRING->append(VAL[x]+'\n');
 	}
 	return 0;
 }

@@ -30,7 +30,7 @@
 							<label>RAW Codes</label>
 							<object class="sizeritem">
 								<object class="wxTextCtrl" name="ID_TEXTCTRL2" variable="RAWCODE" member="yes">
-									<style>wxTE_MULTILINE|wxTE_READONLY</style>
+									<style>wxTE_MULTILINE</style>
 								</object>
 								<flag>wxALL|wxEXPAND</flag>
 								<border>5</border>

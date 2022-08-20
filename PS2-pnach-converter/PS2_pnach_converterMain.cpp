@@ -82,7 +82,7 @@ PS2_pnach_converterFrame::PS2_pnach_converterFrame(wxWindow* parent,wxWindowID i
     StaticBoxSizer1->Add(PNACHCODE, 1, wxALL|wxEXPAND, 5);
     GridSizer1->Add(StaticBoxSizer1, 1, wxALL|wxEXPAND, 5);
     StaticBoxSizer2 = new wxStaticBoxSizer(wxHORIZONTAL, this, _("RAW Codes"));
-    RAWCODE = new wxTextCtrl(this, ID_TEXTCTRL2, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE|wxTE_READONLY, wxDefaultValidator, _T("ID_TEXTCTRL2"));
+    RAWCODE = new wxTextCtrl(this, ID_TEXTCTRL2, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE, wxDefaultValidator, _T("ID_TEXTCTRL2"));
     StaticBoxSizer2->Add(RAWCODE, 1, wxALL|wxEXPAND, 5);
     GridSizer1->Add(StaticBoxSizer2, 1, wxALL|wxEXPAND, 5);
     FlexGridSizer1->Add(GridSizer1, 1, wxALL|wxEXPAND, 5);
