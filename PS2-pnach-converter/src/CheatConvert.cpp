@@ -21,22 +21,21 @@ int CheatConvert::convert_cheat(wxString* CHEAT)
 	wxString TYPE = CHEAT->SubString(POS+1, CHEAT->find(',', POS+1)-1); //get type, so we can then change first number of ADRESS
 	POS = CHEAT->find(',', POS+1); //find 4th
 	wxString VAL = CHEAT->substr(POS+1, 8); //get the patch adress
-	if (TYPE != "extended")
-	{
-		if (TYPE == "word")
-			ADRESS[0] = '2';
-		else if (TYPE == "half")
-			ADRESS[0] = '1';
-		else if (TYPE == "byte")
-			ADRESS[0] = '0';
-	}
+
+	if (TYPE == "word")
+		ADRESS[0] = '2';
+	else if (TYPE == "half")
+		ADRESS[0] = '1';
+	else if (TYPE == "byte")
+		ADRESS[0] = '0';
+
 	CHEAT->clear();
 	CHEAT->Printf("%s %s", ADRESS, VAL);
 	return 0;
 }
 int CheatConvert::convert_cheats_on_buff(wxArrayString* BUFF)
 {
-	wxRegEx PNACH_EE_CHEAT(wxString("patch=[0-1],EE,[0-9a-fA-F]{8},(extends|byte|half|word),[0-9a-fA-F]{8}"));
+	wxRegEx PNACH_EE_CHEAT(wxString("patch=[0-1],EE,[0-9a-fA-F]{8},(extends|byte|half|word|extended),[0-9a-fA-F]{8}"));
 	for (size_t x=0; x< BUFF->GetCount();x++)
 	{
 		wxString CHEAT = BUFF->Item(x);
