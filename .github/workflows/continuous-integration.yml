@@ -52,6 +52,12 @@ jobs:
             cmake_generator: ""
             docker: "dockcross/windows-static-x86:latest"
             executable_name: "PS2_pnach_converter.exe"
+          - platform_name: windowsx64
+            os: ubuntu-20.04
+            cxx: "g++"
+            cmake_generator: ""
+            docker: "dockcross/windows-static-x64:latest"
+            executable_name: "PS2_pnach_converter.exe"
 
     steps:
       - uses: actions/checkout@v2
