@@ -24,7 +24,7 @@ jobs:
         run: |
           echo "https://img.shields.io/github/downloads/${{ github.repository }}/Latest/total">CHANGELOG.MD
           echo Latest changes:>>CHANGELOG.MD
-          git --no-pager log Latest..HEAD --pretty=format:"- %h  %<(18)%an: %s">>CHANGELOG.MD
+          git --no-pager log latest..HEAD --pretty=format:"- %h  %<(18)%an: %s">>CHANGELOG.MD
           cat CHANGELOG.MD
 
       - name: delete previous tag/release
