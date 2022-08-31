@@ -2,7 +2,8 @@
 #include <wx/wfstream.h>
 #include <wx/txtstrm.h>
 #include <wx/tokenzr.h>
-CheatConvert::CheatConvert()
+CheatConvert::CheatConvert(int flags):
+	FLAGS(flags)
 {
 }
 
@@ -46,8 +47,15 @@ int CheatConvert::convert_cheats_on_buff(wxArrayString* BUFF)
 		}*/
 		if (CHEAT.StartsWith("gametitle="))
 		{
-			CHEAT.Replace("gametitle=", "//");
-			BUFF->Item(x) = CHEAT;
+			if (FLAGS & SKIP_GAMETITLE)
+			{
+				BUFF->Item(x) = wxEmptyString;
+			}
+			else
+			{
+				CHEAT.Replace("gametitle=", "//");
+				BUFF->Item(x) = CHEAT;
+			}
 		}
 		if (CHEAT.StartsWith("comment="))
 		{
@@ -75,7 +83,16 @@ int CheatConvert::convert_cheats_on_buffstring(wxString* BUFFSTRING)
 	for (size_t x=0; x< VAL.GetCount();x++)
 	{
 		if (VAL[x] == wxEmptyString)
+		{
+			if (FLAGS & SKIP_BLANK)
+			{
+				continue;
+			}
+			else
+			{
 			BUFFSTRING->append("\n");
+			}
+		}
 		else
 			BUFFSTRING->append(VAL[x]+'\n');
 	}

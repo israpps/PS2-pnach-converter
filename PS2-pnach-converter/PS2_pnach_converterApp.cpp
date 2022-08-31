@@ -21,7 +21,20 @@ bool PS2_pnach_converterApp::OnInit()
 {
 	if (wxTheApp->argc >= 2) //we have commands
 	{
-		CheatConvert* CHT = new CheatConvert();
+		int FLG = 0;
+		if (wxTheApp->argc > 2)
+			for (int x=2; x<wxTheApp->argc; x++)
+			{
+				wxString TMP = wxTheApp->argv[x];
+				if (TMP == wxT("-g"))
+				{
+					FLG |= SKIP_GAMETITLE;
+				}
+
+				if (TMP == wxT("-b"))
+					FLG |= SKIP_BLANK;
+			}
+		CheatConvert* CHT = new CheatConvert(FLG);
 		wxString CHEAT = wxTheApp->argv[1];
 		wxArrayString RESULT;
 		CHT->convert_cheats_on_FILE(CHEAT, &RESULT);
@@ -43,11 +56,8 @@ bool PS2_pnach_converterApp::OnInit()
 					std::cout << RESULT[x]<<'\n';
 			}
 		} else {
-			std::cout <<"-----------------------------------------------------------------------\n";
 			for (size_t x=0; x<RESULT.GetCount();x++)
 				std::cout << RESULT[x]<<'\n';
-			std::cout <<"-----------------------------------------------------------------------\nPress any key to continue\n";
-			std::cin.get();
 		}
 		delete CHT;
 		return false;

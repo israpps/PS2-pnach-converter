@@ -144,7 +144,7 @@ void PS2_pnach_converterFrame::OnConvertCheatsClick(wxCommandEvent& event)
 		return;
 	}
 	wxString TMP = PNACHCODE->GetValue();
-	CheatConvert* CHT = new CheatConvert();
+	CheatConvert* CHT = new CheatConvert(0);
 	CHT->convert_cheats_on_buffstring(&TMP);
 	RAWCODE->Clear();
 	RAWCODE->SetValue(TMP);

@@ -5,10 +5,18 @@
 #include <wx/regex.h>
 #include <string>
 #include <iostream>
+#define SETBIT(x) (1 << x)
+	enum FLAGSVAL
+	{
+		SKIP_GAMETITLE = SETBIT(1),
+		SKIP_BLANK = SETBIT(2)
+		//CONVERT_GAMETITLE_INTO_PS2RDHEADING = SETBIT(10),
+	};
+
 class CheatConvert
 {
 	public:
-		CheatConvert();
+		CheatConvert(int flags);
 		virtual ~CheatConvert();
 		int convert_cheat(wxString* CHEAT);
 		int convert_cheats_on_buff(wxArrayString* BUFF);
@@ -17,7 +25,7 @@ class CheatConvert
 	protected:
 
 	private:
-
+	int FLAGS;
 };
 
 #endif // CHEATCONVERT_H
