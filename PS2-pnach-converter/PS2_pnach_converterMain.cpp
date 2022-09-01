@@ -18,8 +18,10 @@
 //*)
 
 //helper functions
-enum wxbuildinfoformat {
-    short_f, long_f };
+enum wxbuildinfoformat
+{
+    short_f, long_f
+};
 
 wxString wxbuildinfo(wxbuildinfoformat format)
 {
@@ -138,35 +140,35 @@ void PS2_pnach_converterFrame::OnAbout(wxCommandEvent& event)
 
 void PS2_pnach_converterFrame::OnConvertCheatsClick(wxCommandEvent& event)
 {
-	if (PNACHCODE->IsEmpty())
-	{
-		wxMessageBox(_("There is no text on the PNACH code field"), "", wxICON_INFORMATION);
-		return;
-	}
-	wxString TMP = PNACHCODE->GetValue();
-	CheatConvert* CHT = new CheatConvert(0);
-	CHT->convert_cheats_on_buffstring(&TMP);
-	RAWCODE->Clear();
-	RAWCODE->SetValue(TMP);
-	delete CHT;
+    if (PNACHCODE->IsEmpty())
+    {
+        wxMessageBox(_("There is no text on the PNACH code field"), "", wxICON_INFORMATION);
+        return;
+    }
+    wxString TMP = PNACHCODE->GetValue();
+    CheatConvert* CHT = new CheatConvert(0);
+    CHT->convert_cheats_on_buffstring(&TMP);
+    RAWCODE->Clear();
+    RAWCODE->SetValue(TMP);
+    delete CHT;
 }
 
 void PS2_pnach_converterFrame::OnSaveCheatsClick(wxCommandEvent& event)
 {
-	wxFileDialog* FDLG = new wxFileDialog(this, _("Save the converted cheats into a file"), wxEmptyString, wxEmptyString, "OpenPs2Loader cheat codes(.cht)|*.cht|any|*.*",wxFD_SAVE);
+    wxFileDialog* FDLG = new wxFileDialog(this, _("Save the converted cheats into a file"), wxEmptyString, wxEmptyString, "OpenPs2Loader cheat codes(.cht)|*.cht|any|*.*",wxFD_SAVE);
 
-	if (FDLG->ShowModal() == wxID_OK)
-	{
-		wxString PATH = FDLG->GetPath();
-		wxFile FILEMAN;
-		FILEMAN.Open(PATH, wxFile::write);
-		if (!FILEMAN.IsOpened())
-		{
-			wxMessageBox(_("File could not be opened for writing"), _("An error ocurred while saving..."), wxICON_ERROR);
-			delete FDLG;
-			return;
-		}
-		FILEMAN.Write(RAWCODE->GetValue());
-	}
-	delete FDLG;
+    if (FDLG->ShowModal() == wxID_OK)
+    {
+        wxString PATH = FDLG->GetPath();
+        wxFile FILEMAN;
+        FILEMAN.Open(PATH, wxFile::write);
+        if (!FILEMAN.IsOpened())
+        {
+            wxMessageBox(_("File could not be opened for writing"), _("An error ocurred while saving..."), wxICON_ERROR);
+            delete FDLG;
+            return;
+        }
+        FILEMAN.Write(RAWCODE->GetValue());
+    }
+    delete FDLG;
 }

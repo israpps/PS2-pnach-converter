@@ -21,39 +21,39 @@
 
 class PS2_pnach_converterFrame: public wxFrame
 {
-    public:
+public:
 
-        PS2_pnach_converterFrame(wxWindow* parent,wxWindowID id = -1);
-        virtual ~PS2_pnach_converterFrame();
+    PS2_pnach_converterFrame(wxWindow* parent,wxWindowID id = -1);
+    virtual ~PS2_pnach_converterFrame();
 
-    private:
+private:
 
-        //(*Handlers(PS2_pnach_converterFrame)
-        void OnQuit(wxCommandEvent& event);
-        void OnAbout(wxCommandEvent& event);
-        void OnConvertCheatsClick(wxCommandEvent& event);
-        void OnSaveCheatsClick(wxCommandEvent& event);
-        //*)
+    //(*Handlers(PS2_pnach_converterFrame)
+    void OnQuit(wxCommandEvent& event);
+    void OnAbout(wxCommandEvent& event);
+    void OnConvertCheatsClick(wxCommandEvent& event);
+    void OnSaveCheatsClick(wxCommandEvent& event);
+    //*)
 
-        //(*Identifiers(PS2_pnach_converterFrame)
-        static const long ID_TEXTCTRL1;
-        static const long ID_TEXTCTRL2;
-        static const long ID_BUTTON1;
-        static const long ID_BUTTON2;
-        static const long idMenuQuit;
-        static const long idMenuAbout;
-        static const long ID_STATUSBAR1;
-        //*)
+    //(*Identifiers(PS2_pnach_converterFrame)
+    static const long ID_TEXTCTRL1;
+    static const long ID_TEXTCTRL2;
+    static const long ID_BUTTON1;
+    static const long ID_BUTTON2;
+    static const long idMenuQuit;
+    static const long idMenuAbout;
+    static const long ID_STATUSBAR1;
+    //*)
 
-        //(*Declarations(PS2_pnach_converterFrame)
-        wxButton* ConvertCheats;
-        wxButton* SaveCheats;
-        wxStatusBar* StatusBar1;
-        wxTextCtrl* PNACHCODE;
-        wxTextCtrl* RAWCODE;
-        //*)
+    //(*Declarations(PS2_pnach_converterFrame)
+    wxButton* ConvertCheats;
+    wxButton* SaveCheats;
+    wxStatusBar* StatusBar1;
+    wxTextCtrl* PNACHCODE;
+    wxTextCtrl* RAWCODE;
+    //*)
 
-        DECLARE_EVENT_TABLE()
+    DECLARE_EVENT_TABLE()
 };
 
 #endif // PS2_PNACH_CONVERTERMAIN_H

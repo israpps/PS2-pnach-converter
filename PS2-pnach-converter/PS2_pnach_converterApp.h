@@ -14,8 +14,8 @@
 
 class PS2_pnach_converterApp : public wxApp
 {
-    public:
-        virtual bool OnInit();
+public:
+    virtual bool OnInit();
 };
 
 #endif // PS2_PNACH_CONVERTERAPP_H
