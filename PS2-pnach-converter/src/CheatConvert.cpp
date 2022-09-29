@@ -30,6 +30,17 @@ int CheatConvert::convert_cheat(wxString* CHEAT)
     else if (TYPE == "byte")
         ADRESS[0] = '0';
 
+    if (FLAGS & MAKE_LOWERCASE_CHEATS)
+    {
+        VAL = VAL.Lower();
+        ADRESS = ADRESS.Lower();
+    } else if (FLAGS & MAKE_UPPERCASE_CHEATS)
+    {
+        VAL = VAL.Upper();
+        ADRESS = ADRESS.Upper();
+    }
+
+
     CHEAT->clear();
     CHEAT->Printf("%s %s", ADRESS, VAL);
     return 0;

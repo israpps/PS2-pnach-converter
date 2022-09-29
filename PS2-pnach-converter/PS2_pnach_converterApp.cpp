@@ -33,6 +33,12 @@ bool PS2_pnach_converterApp::OnInit()
 
                 if (TMP == wxT("-b"))
                     FLG |= SKIP_BLANK;
+
+                if (TMP == wxT("-l"))
+                    FLG |= MAKE_LOWERCASE_CHEATS;
+
+                if (TMP == wxT("-u"))
+                    FLG |= MAKE_UPPERCASE_CHEATS;
             }
         CheatConvert* CHT = new CheatConvert(FLG);
         wxString CHEAT = wxTheApp->argv[1];

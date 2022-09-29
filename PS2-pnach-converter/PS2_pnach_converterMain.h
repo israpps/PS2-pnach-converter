@@ -42,12 +42,29 @@ private:
     static const long ID_BUTTON2;
     static const long idMenuQuit;
     static const long idMenuAbout;
+    static const long ID_MENUITEM5;
+    static const long ID_MENUITEM3;
+    static const long ID_MENUITEM4;
+    static const long ID_MENUITEM2;
+    static const long ID_MENUITEM7;
+    static const long ID_MENUITEM8;
+    static const long ID_MENUITEM6;
+    static const long ID_MENUITEM1;
     static const long ID_STATUSBAR1;
     //*)
 
     //(*Declarations(PS2_pnach_converterFrame)
     wxButton* ConvertCheats;
     wxButton* SaveCheats;
+    wxMenu* Menu3;
+    wxMenu* MenuItem3;
+    wxMenu* MenuItem4;
+    wxMenu* MenuItem8;
+    wxMenuItem* EnforceLowercase;
+    wxMenuItem* EnforceUppercase;
+    wxMenuItem* MenuItem7;
+    wxMenuItem* SkipBlankLine;
+    wxMenuItem* SkipGameTitle;
     wxStatusBar* StatusBar1;
     wxTextCtrl* PNACHCODE;
     wxTextCtrl* RAWCODE;

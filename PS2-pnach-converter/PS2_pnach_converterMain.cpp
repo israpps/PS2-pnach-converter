@@ -52,6 +52,14 @@ const long PS2_pnach_converterFrame::ID_BUTTON1 = wxNewId();
 const long PS2_pnach_converterFrame::ID_BUTTON2 = wxNewId();
 const long PS2_pnach_converterFrame::idMenuQuit = wxNewId();
 const long PS2_pnach_converterFrame::idMenuAbout = wxNewId();
+const long PS2_pnach_converterFrame::ID_MENUITEM5 = wxNewId();
+const long PS2_pnach_converterFrame::ID_MENUITEM3 = wxNewId();
+const long PS2_pnach_converterFrame::ID_MENUITEM4 = wxNewId();
+const long PS2_pnach_converterFrame::ID_MENUITEM2 = wxNewId();
+const long PS2_pnach_converterFrame::ID_MENUITEM7 = wxNewId();
+const long PS2_pnach_converterFrame::ID_MENUITEM8 = wxNewId();
+const long PS2_pnach_converterFrame::ID_MENUITEM6 = wxNewId();
+const long PS2_pnach_converterFrame::ID_MENUITEM1 = wxNewId();
 const long PS2_pnach_converterFrame::ID_STATUSBAR1 = wxNewId();
 //*)
 
@@ -80,11 +88,11 @@ PS2_pnach_converterFrame::PS2_pnach_converterFrame(wxWindow* parent,wxWindowID i
     FlexGridSizer1->AddGrowableRow(0);
     GridSizer1 = new wxGridSizer(0, 2, 0, 0);
     StaticBoxSizer1 = new wxStaticBoxSizer(wxHORIZONTAL, this, _("PNACH Codes"));
-    PNACHCODE = new wxTextCtrl(this, ID_TEXTCTRL1, wxEmptyString, wxDefaultPosition, wxSize(543,275), wxTE_MULTILINE, wxDefaultValidator, _T("ID_TEXTCTRL1"));
+    PNACHCODE = new wxTextCtrl(this, ID_TEXTCTRL1, wxEmptyString, wxDefaultPosition, wxSize(543,275), wxTE_MULTILINE|wxHSCROLL, wxDefaultValidator, _T("ID_TEXTCTRL1"));
     StaticBoxSizer1->Add(PNACHCODE, 1, wxALL|wxEXPAND, 5);
     GridSizer1->Add(StaticBoxSizer1, 1, wxALL|wxEXPAND, 5);
     StaticBoxSizer2 = new wxStaticBoxSizer(wxHORIZONTAL, this, _("RAW Codes"));
-    RAWCODE = new wxTextCtrl(this, ID_TEXTCTRL2, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE, wxDefaultValidator, _T("ID_TEXTCTRL2"));
+    RAWCODE = new wxTextCtrl(this, ID_TEXTCTRL2, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE|wxHSCROLL, wxDefaultValidator, _T("ID_TEXTCTRL2"));
     StaticBoxSizer2->Add(RAWCODE, 1, wxALL|wxEXPAND, 5);
     GridSizer1->Add(StaticBoxSizer2, 1, wxALL|wxEXPAND, 5);
     FlexGridSizer1->Add(GridSizer1, 1, wxALL|wxEXPAND, 5);
@@ -104,6 +112,24 @@ PS2_pnach_converterFrame::PS2_pnach_converterFrame(wxWindow* parent,wxWindowID i
     MenuItem2 = new wxMenuItem(Menu2, idMenuAbout, _("About\tF1"), _("Show info about this application"), wxITEM_NORMAL);
     Menu2->Append(MenuItem2);
     MenuBar1->Append(Menu2, _("Help"));
+    Menu3 = new wxMenu();
+    MenuItem3 = new wxMenu();
+    MenuItem4 = new wxMenu();
+    MenuItem7 = new wxMenuItem(MenuItem4, ID_MENUITEM5, _("do nothing"), wxEmptyString, wxITEM_RADIO);
+    MenuItem4->Append(MenuItem7);
+    EnforceLowercase = new wxMenuItem(MenuItem4, ID_MENUITEM3, _("Lowercase"), wxEmptyString, wxITEM_RADIO);
+    MenuItem4->Append(EnforceLowercase);
+    EnforceUppercase = new wxMenuItem(MenuItem4, ID_MENUITEM4, _("Uppercase"), wxEmptyString, wxITEM_RADIO);
+    MenuItem4->Append(EnforceUppercase);
+    MenuItem3->Append(ID_MENUITEM2, _("output cheats case"), MenuItem4, wxEmptyString);
+    MenuItem8 = new wxMenu();
+    SkipGameTitle = new wxMenuItem(MenuItem8, ID_MENUITEM7, _("gametitle entry"), wxEmptyString, wxITEM_CHECK);
+    MenuItem8->Append(SkipGameTitle);
+    SkipBlankLine = new wxMenuItem(MenuItem8, ID_MENUITEM8, _("Blank Lines"), wxEmptyString, wxITEM_CHECK);
+    MenuItem8->Append(SkipBlankLine);
+    MenuItem3->Append(ID_MENUITEM6, _("Skip elements"), MenuItem8, wxEmptyString);
+    Menu3->Append(ID_MENUITEM1, _("Convertion preferences"), MenuItem3, wxEmptyString);
+    MenuBar1->Append(Menu3, _("Settings"));
     SetMenuBar(MenuBar1);
     StatusBar1 = new wxStatusBar(this, ID_STATUSBAR1, 0, _T("ID_STATUSBAR1"));
     int __wxStatusBarWidths_1[1] = { -1 };
@@ -140,13 +166,26 @@ void PS2_pnach_converterFrame::OnAbout(wxCommandEvent& event)
 
 void PS2_pnach_converterFrame::OnConvertCheatsClick(wxCommandEvent& event)
 {
+    int FLAGS = 0;
     if (PNACHCODE->IsEmpty())
     {
         wxMessageBox(_("There is no text on the PNACH code field"), "", wxICON_INFORMATION);
         return;
     }
+    if (SkipGameTitle->IsChecked())
+        FLAGS |= SKIP_GAMETITLE;
+
+    if (SkipBlankLine->IsChecked())
+        FLAGS |= SKIP_BLANK;
+
+    if (EnforceLowercase->IsChecked())
+        FLAGS |= MAKE_LOWERCASE_CHEATS;
+
+    if (EnforceUppercase->IsChecked())
+        FLAGS |= MAKE_UPPERCASE_CHEATS;
+
     wxString TMP = PNACHCODE->GetValue();
-    CheatConvert* CHT = new CheatConvert(0);
+    CheatConvert* CHT = new CheatConvert(FLAGS);
     CHT->convert_cheats_on_buffstring(&TMP);
     RAWCODE->Clear();
     RAWCODE->SetValue(TMP);

@@ -12,6 +12,19 @@ Pull requests to enhance this program are gladly accepted!
 
 This tool is also the heart of the recent updates into [the largest PS2 widescreen hacks convertion effort](https://github.com/PS2-Widescreen/OPL-Widescreen-Cheats)
 
+## Command line tool
+
+The program supports the following arguments
+
+- `-g`: skip the `gametitle` entry
+- `-b`: skip blank lines
+- `-l`: make generated cheats lowercase (has priority)
+- `-u`: make generated cheats uppercase ( `-l` has priority)
+
+- `-o=FILE`: `FILE` is used as output
+
+__Argumment one will ALWAYS be the input file!__
+
 ## Credits
 
 Tool made entirely by me (El_Isra, AKA: Matias Israelson)
