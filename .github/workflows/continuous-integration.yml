@@ -22,7 +22,7 @@ jobs:
       - name: Create changelog
         if: github.ref == 'refs/heads/master'
         run: |
-          echo "![Downloads](https://img.shields.io/github/downloads/${{ github.repository }}/Latest/total)">CHANGELOG.MD
+          echo "![Downloads](https://img.shields.io/github/downloads/${{ github.repository }}/latest/total)">CHANGELOG.MD
           echo Latest changes:>>CHANGELOG.MD
           git --no-pager log latest..HEAD --pretty=format:"- %h  %<(18)%an: %s">>CHANGELOG.MD
           cat CHANGELOG.MD
