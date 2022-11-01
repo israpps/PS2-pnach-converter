@@ -124,6 +124,7 @@ add_executable(PS2_pnach_converter WIN32
 	"PS2-pnach-converter/PS2_pnach_converterApp.cpp"
 	#END OF UI TRANSLATION UNITS
 	"PS2-pnach-converter/src/CheatConvert.cpp"
+	"PS2-pnach-converter/resource.rc"
 )
 # target_link_libraries(demo PRIVATE wx-widgets-test-compiler-options)
 target_link_libraries(PS2_pnach_converter PRIVATE wx::net wx::core wx::base )
