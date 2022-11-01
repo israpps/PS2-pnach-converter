@@ -89,7 +89,9 @@ jobs:
 
       - name: Install Linux Dependencies
         if: matrix.platform_name == 'linux'
-        run: sudo apt-get install --assume-yes libgtk-3-dev libglew-dev
+        run: |
+          sudo apt-get update
+          sudo apt-get install --assume-yes libgtk-3-dev libglew-dev
 
       - name: Cache CMake dependency source code
         uses: actions/cache@v2
