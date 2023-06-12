@@ -67,12 +67,21 @@ int CheatConvert::convert_cheats_on_buff(wxArrayString* BUFF)
                 CHEAT.Replace("gametitle=", "//");
                 BUFF->Item(x) = CHEAT;
             }
-        }
-        if (CHEAT.StartsWith("comment="))
+        } 
+        else if (CHEAT.StartsWith("author="))
         {
-            CHEAT.Replace("comment=", "//");
+            CHEAT.Replace("author=", "// author: ");
             BUFF->Item(x) = CHEAT;
         }
+        else if (CHEAT.StartsWith("gsaspectratio="))
+        {
+            BUFF->Item(x) = wxEmptyString;
+        }
+        else if (CHEAT.StartsWith("["))
+        {
+            BUFF->Item(x) = "//"+CHEAT;
+        }
+        
         if (PNACH_EE_CHEAT.Matches(CHEAT))
         {
             wxString TMPBUF = PNACH_EE_CHEAT.GetMatch(CHEAT);
