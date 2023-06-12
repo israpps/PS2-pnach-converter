@@ -67,21 +67,26 @@ int CheatConvert::convert_cheats_on_buff(wxArrayString* BUFF)
                 CHEAT.Replace("gametitle=", "//");
                 BUFF->Item(x) = CHEAT;
             }
-        } 
-        else if (CHEAT.StartsWith("author="))
+        }
+        if (CHEAT.StartsWith("author="))
         {
             CHEAT.Replace("author=", "// author: ");
             BUFF->Item(x) = CHEAT;
         }
-        else if (CHEAT.StartsWith("gsaspectratio="))
+        if (CHEAT.StartsWith("comment="))
         {
-            BUFF->Item(x) = wxEmptyString;
+            CHEAT.Replace("comment=", "//");
+            BUFF->Item(x) = CHEAT;
         }
-        else if (CHEAT.StartsWith("["))
+        if (CHEAT.StartsWith("gsaspectratio="))
+        {
+            BUFF->Item(x) = wxEmptyString; //gsaspectratio is PCSX2 specific. we always get rid of it
+        }
+        if (CHEAT.StartsWith("["))
         {
             BUFF->Item(x) = "//"+CHEAT;
         }
-        
+
         if (PNACH_EE_CHEAT.Matches(CHEAT))
         {
             wxString TMPBUF = PNACH_EE_CHEAT.GetMatch(CHEAT);
