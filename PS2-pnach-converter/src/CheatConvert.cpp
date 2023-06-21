@@ -83,9 +83,9 @@ int CheatConvert::convert_cheats_on_buff(wxArrayString* BUFF)
             CHEAT.Replace("description=", "//");
             BUFF->Item(x) = CHEAT;
         }
-        if (CHEAT.StartsWith("gsaspectratio="))
+        if (CHEAT.StartsWith("gsaspectratio=") || CHEAT.StartsWith("gsinterlacemode=")) //PCSX2 specific. we always get rid of it
         {
-            BUFF->Item(x) = wxEmptyString; //gsaspectratio is PCSX2 specific. we always get rid of it
+            BUFF->Item(x) = wxEmptyString;
         }
         if (CHEAT.StartsWith("["))
         {
