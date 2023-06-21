@@ -78,6 +78,11 @@ int CheatConvert::convert_cheats_on_buff(wxArrayString* BUFF)
             CHEAT.Replace("comment=", "//");
             BUFF->Item(x) = CHEAT;
         }
+        if (CHEAT.StartsWith("description="))
+        {
+            CHEAT.Replace("description=", "//");
+            BUFF->Item(x) = CHEAT;
+        }
         if (CHEAT.StartsWith("gsaspectratio="))
         {
             BUFF->Item(x) = wxEmptyString; //gsaspectratio is PCSX2 specific. we always get rid of it
