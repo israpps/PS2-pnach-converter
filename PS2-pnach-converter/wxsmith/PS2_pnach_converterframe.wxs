@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <wxsmith>
 	<object class="wxFrame" name="PS2_pnach_converterFrame">
+		<bg>wxSYS_COLOUR_MENU</bg>
 		<object class="wxFlexGridSizer" variable="FlexGridSizer1" member="no">
 			<cols>1</cols>
 			<growablecols>0</growablecols>
@@ -14,7 +15,7 @@
 							<object class="sizeritem">
 								<object class="wxTextCtrl" name="ID_TEXTCTRL1" variable="PNACHCODE" member="yes">
 									<size>543,275</size>
-									<style>wxTE_MULTILINE|wxHSCROLL</style>
+									<style>wxTE_MULTILINE|wxBORDER_DOUBLE|wxHSCROLL</style>
 								</object>
 								<flag>wxALL|wxEXPAND</flag>
 								<border>5</border>
@@ -30,7 +31,7 @@
 							<label>RAW Codes</label>
 							<object class="sizeritem">
 								<object class="wxTextCtrl" name="ID_TEXTCTRL2" variable="RAWCODE" member="yes">
-									<style>wxTE_MULTILINE|wxHSCROLL</style>
+									<style>wxTE_MULTILINE|wxBORDER_DOUBLE|wxHSCROLL</style>
 								</object>
 								<flag>wxALL|wxEXPAND</flag>
 								<border>5</border>

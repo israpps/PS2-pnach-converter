@@ -14,6 +14,7 @@
 #include <wx/file.h>
 //(*InternalHeaders(PS2_pnach_converterFrame)
 #include <wx/intl.h>
+#include <wx/settings.h>
 #include <wx/string.h>
 //*)
 
@@ -83,16 +84,17 @@ PS2_pnach_converterFrame::PS2_pnach_converterFrame(wxWindow* parent,wxWindowID i
     wxStaticBoxSizer* StaticBoxSizer2;
 
     Create(parent, id, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE, _T("id"));
+    SetBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_MENU));
     FlexGridSizer1 = new wxFlexGridSizer(0, 1, 0, 0);
     FlexGridSizer1->AddGrowableCol(0);
     FlexGridSizer1->AddGrowableRow(0);
     GridSizer1 = new wxGridSizer(0, 2, 0, 0);
     StaticBoxSizer1 = new wxStaticBoxSizer(wxHORIZONTAL, this, _("PNACH Codes"));
-    PNACHCODE = new wxTextCtrl(this, ID_TEXTCTRL1, wxEmptyString, wxDefaultPosition, wxSize(543,275), wxTE_MULTILINE|wxHSCROLL, wxDefaultValidator, _T("ID_TEXTCTRL1"));
+    PNACHCODE = new wxTextCtrl(this, ID_TEXTCTRL1, wxEmptyString, wxDefaultPosition, wxSize(543,275), wxTE_MULTILINE|wxBORDER_DOUBLE|wxHSCROLL, wxDefaultValidator, _T("ID_TEXTCTRL1"));
     StaticBoxSizer1->Add(PNACHCODE, 1, wxALL|wxEXPAND, 5);
     GridSizer1->Add(StaticBoxSizer1, 1, wxALL|wxEXPAND, 5);
     StaticBoxSizer2 = new wxStaticBoxSizer(wxHORIZONTAL, this, _("RAW Codes"));
-    RAWCODE = new wxTextCtrl(this, ID_TEXTCTRL2, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE|wxHSCROLL, wxDefaultValidator, _T("ID_TEXTCTRL2"));
+    RAWCODE = new wxTextCtrl(this, ID_TEXTCTRL2, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE|wxBORDER_DOUBLE|wxHSCROLL, wxDefaultValidator, _T("ID_TEXTCTRL2"));
     StaticBoxSizer2->Add(RAWCODE, 1, wxALL|wxEXPAND, 5);
     GridSizer1->Add(StaticBoxSizer2, 1, wxALL|wxEXPAND, 5);
     FlexGridSizer1->Add(GridSizer1, 1, wxALL|wxEXPAND, 5);
