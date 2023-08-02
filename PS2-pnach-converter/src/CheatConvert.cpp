@@ -25,7 +25,7 @@ int CheatConvert::convert_cheat(wxString* CHEAT)
 
     if (TYPE == "word")
         ADRESS[0] = '2';
-    else if (TYPE == "half")
+    else if (TYPE == "half" || TYPE == "short")
         ADRESS[0] = '1';
     else if (TYPE == "byte")
         ADRESS[0] = '0';
@@ -47,7 +47,7 @@ int CheatConvert::convert_cheat(wxString* CHEAT)
 }
 int CheatConvert::convert_cheats_on_buff(wxArrayString* BUFF)
 {
-    wxRegEx PNACH_EE_CHEAT(wxString("patch=[0-9],EE,[0-9a-fA-F]{8},(extends|byte|half|word|extended),[0-9a-fA-F]{8}"));
+    wxRegEx PNACH_EE_CHEAT(wxString("patch=[0-9],EE,[0-9a-fA-F]{8},(extends|byte|half|short|word|extended),[0-9a-fA-F]{8}"));
     for (size_t x=0; x< BUFF->GetCount(); x++)
     {
         wxString CHEAT = BUFF->Item(x);
