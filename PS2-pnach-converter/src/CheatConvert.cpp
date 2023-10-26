@@ -39,7 +39,10 @@ int CheatConvert::convert_cheat(wxString* CHEAT)
         VAL = VAL.Upper();
         ADRESS = ADRESS.Upper();
     }
-
+    if (VAL.length() < 8) {
+        int INT_VAL = wxAtoi(VAL);
+        VAL = wxString::Format("%08d", INT_VAL);
+    }
 
     CHEAT->clear();
     CHEAT->Printf("%s %s", ADRESS, VAL);
@@ -47,7 +50,7 @@ int CheatConvert::convert_cheat(wxString* CHEAT)
 }
 int CheatConvert::convert_cheats_on_buff(wxArrayString* BUFF)
 {
-    wxRegEx PNACH_EE_CHEAT(wxString("patch=[0-9],EE,[0-9a-fA-F]{8},(extends|byte|half|short|word|extended),[0-9a-fA-F]{8}"));
+    wxRegEx PNACH_EE_CHEAT(wxString("patch=[0-9],EE,[0-9a-fA-F]{8},(extends|byte|half|short|word|extended),[0-9a-fA-F]{1,8}"));
     for (size_t x=0; x< BUFF->GetCount(); x++)
     {
         wxString CHEAT = BUFF->Item(x);
