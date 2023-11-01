@@ -2,6 +2,7 @@
 #include <wx/wfstream.h>
 #include <wx/txtstrm.h>
 #include <wx/tokenzr.h>
+#include <wx/wxchar.h>
 CheatConvert::CheatConvert(int flags):
     FLAGS(flags)
 {
