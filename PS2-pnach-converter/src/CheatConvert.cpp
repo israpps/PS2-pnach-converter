@@ -41,8 +41,10 @@ int CheatConvert::convert_cheat(wxString* CHEAT)
         ADRESS = ADRESS.Upper();
     }
     if (VAL.length() < 8) {
-        int INT_VAL = wxAtoi(VAL);
-        VAL = wxString::Format("%08d", INT_VAL);
+        long INT_VAL = 0;
+        if (hexStr.ToLong(&INT_VAL, 16)) {
+            VAL = wxString::Format("%08lx", INT_VAL);
+        }
     }
 
     CHEAT->clear();
