@@ -16,7 +16,7 @@ jobs:
         # specify a specific compiler to build with each OS separately
         include:
           - platform_name: linux
-            os: ubuntu-20.04
+            os: ubuntu-latest
             cxx: g++-10
           - platform_name: macos
             os: macos-10.15
