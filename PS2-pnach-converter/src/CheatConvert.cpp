@@ -42,7 +42,8 @@ int CheatConvert::convert_cheat(wxString* CHEAT)
     }
     if (VAL.length() < 8) {
         long INT_VAL = 0;
-        if (hexStr.ToLong(&INT_VAL, 16)) {
+        wxString hexStr;
+        if (VAL.ToLong(&INT_VAL, 16)) {
             VAL = wxString::Format("%08lx", INT_VAL);
         }
     }
